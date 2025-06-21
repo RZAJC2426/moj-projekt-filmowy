@@ -31,7 +31,7 @@ function App() {
 },[darkMode]);
 
     return (
-      <HashRouter>
+      <Router>
         <ScrollToTop/>
         <header className='main-header'>
           <nav>
@@ -51,7 +51,7 @@ function App() {
       <footer className='main-footer'>
         &copy; {new Date().getFullYear()} Aplikacja Filmowa
       </footer>
-      </HashRouter>
+      </Router>
     );
 }
 
