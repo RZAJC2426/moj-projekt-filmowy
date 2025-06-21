@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import MovieDetails from './features/movies/MovieDetails';
 import Home from "./components/Home";
 import About from "./components/About";
@@ -31,7 +31,7 @@ function App() {
 },[darkMode]);
 
     return (
-      <Router>
+      <HashRouter>
         <ScrollToTop/>
         <header className='main-header'>
           <nav>
@@ -51,7 +51,7 @@ function App() {
       <footer className='main-footer'>
         &copy; {new Date().getFullYear()} Aplikacja Filmowa
       </footer>
-      </Router>
+      </HashRouter>
     );
 }
 
