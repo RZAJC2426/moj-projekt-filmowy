@@ -35,10 +35,10 @@ function App() {
         <ScrollToTop/>
         <header className='main-header'>
           <nav>
-            <NavLink to="/" end>Filmy</NavLink>
+            <NavLink to="/#/" end>Filmy</NavLink>
             <GenresDropdown /> {/*<--nowy dropdown*/}
-            <NavLink to="/kontakt">Kontakt</NavLink>
-            <NavLink to="/o-nas">O nas</NavLink>
+            <NavLink to="/#/kontakt">Kontakt</NavLink>
+            <NavLink to="/#/o-nas">O nas</NavLink>
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode}/>
           </nav>
          
