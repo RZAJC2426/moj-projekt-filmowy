@@ -8,7 +8,7 @@ Axios
 Framer-motion
 emailjs
 yup
-css
+css.
 Strona główna zawiera menu rozwijalne, gdzie zakładka gatunki rozwija się z listą gatunków filmów, a kontakt prowadzi do formularza utworzonego w formiku wraz z Recaptchą, po wypełnieniu którego wyświetla się komunikat z potwierdzeniem e-mail. 
 Zakładka about zawiera informacje o stronie i jego autora. 
 Strona główna posiada karty plakatów filmów ułożone szeregowo, po wejściu których wyświetla się data premiery, ocena i opis filmu. Jest wyszukiwwarka, gdzie można wpisać konkretny tytuł filmu, a obok niej przy lewej stronie są ułożone trzy przyciski sortujące wg. wyświetleń, ocen czy nadchodzące. 
