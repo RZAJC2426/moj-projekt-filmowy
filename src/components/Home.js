@@ -29,6 +29,7 @@ function Home() {
     } = moviesState;
 
     useEffect(() => {
+        console.log("Dispatchuję fetchMovies:", {category, page, query, genre});
         dispatch(fetchMovies({category, page, query, genre})); 
     }, [category, page, query, genre, dispatch]);
 
