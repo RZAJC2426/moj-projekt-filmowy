@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 import MovieDetails from './features/movies/MovieDetails';
 import Home from "./components/Home";
 import About from "./components/About";
@@ -14,24 +14,17 @@ import ThemeToggle from './components/ThemeToggle';
 function App() {
   const [darkMode, setDarkMode] = useState(() =>{
     const saved = localStorage.getItem('theme');
-    if (saved) return saved === 'dark';
-
-    return window.matchMedia &&
+    return saved ? saved === 'dark':
       window.matchMedia("(prefers-color-scheme:dark)").matches;
   });
 
   useEffect(() => {
-    if (darkMode){
     document.body.className = darkMode ? 'dark-mode' : '';
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-  } else {
-    document.body.classList.remove("dark-mode");
-    localStorage.setItem("theme", "light");
-  } 
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light'); 
 },[darkMode]);
 
     return (
-      <BrowserRouter>
+      <Router>
         <ScrollToTop/>
         <header className='main-header'>
           <nav>
@@ -50,7 +43,7 @@ function App() {
       <footer className='main-footer'>
         &copy; {new Date().getFullYear()} Aplikacja Filmowa
       </footer>
-      </BrowserRouter>
+      </Router>
     );
 }
 
