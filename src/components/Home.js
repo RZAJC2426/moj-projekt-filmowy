@@ -15,10 +15,18 @@ const cardVariants = {
 
 function Home() {
     const dispatch = useDispatch();
-    const {list, status, error, page, totalPages } = useSelector((s) => s.movies);
     const [category, setCategory] = useState("popular");
     const [query, setQuery] = useState("");
     const [genre, setGenre] = useState("");
+
+    const moviesState = useSelector((s) => s.movies) || {};
+    const {
+        list = [],
+        status = "idle",
+        error = null,
+        page = 1,
+        totalPages = 1,
+    } = moviesState;
 
     useEffect(() => {
         dispatch(fetchMovies({category, page, query, genre})); 
@@ -61,7 +69,7 @@ function Home() {
             {status === "failed" && <p style={{ color: "red" }}>{error}</p>}
             
             <ul className="movie-grid">
-                {list.map((m, i) => (
+                {Array.isArray(list) && list.map((m, i) => (
                     <motion.li
                     key={m.id}
                     className="movie-item"
