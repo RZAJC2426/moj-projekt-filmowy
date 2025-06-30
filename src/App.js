@@ -31,7 +31,7 @@ function App() {
 },[darkMode]);
 
     return (
-      <Router>
+      <BrowserRouter>
         <ScrollToTop/>
         <header className='main-header'>
           <nav>
@@ -41,7 +41,6 @@ function App() {
             <NavLink to="/o-nas">O nas</NavLink>
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode}/>
           </nav>
-         
         </header>
 
       <main>
@@ -51,7 +50,7 @@ function App() {
       <footer className='main-footer'>
         &copy; {new Date().getFullYear()} Aplikacja Filmowa
       </footer>
-      </Router>
+      </BrowserRouter>
     );
 }
 
