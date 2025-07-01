@@ -19,6 +19,7 @@ function App() {
   });
 
   useEffect(() => {
+    console.log("App.js uruchomiony");
     document.body.className = darkMode ? 'dark-mode' : '';
     localStorage.setItem('theme', darkMode ? 'dark' : 'light'); 
 },[darkMode]);
