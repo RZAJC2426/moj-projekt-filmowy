@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk} from "@reduxjs/toolkit"
 import axios from "axios";
 const API = "https://api.themoviedb.org/3";
-const key = process.env.REACT_APP_TMDB_API_KEY;
+const key = "a1b942395ebe30f4f491d5c7f0cdb7fd";
 
 
 //thunk do pobierania popularnych filmów
