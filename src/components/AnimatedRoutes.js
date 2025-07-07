@@ -5,7 +5,7 @@ import Home from "./Home";
 import Contact from "./Contact";
 import About from "./About";
 import MovieDetails from "../features/movies/MovieDetails";
-import GenrePage from "./GenrePage";
+import GenrePage from "./features/GenrePage";
 
 function AnimatedRoutes(){
     const location = useLocation();
