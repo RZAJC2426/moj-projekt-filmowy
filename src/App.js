@@ -34,7 +34,7 @@ export default function App() {
         <AnimatedRoutes />
       </main>
       <footer className='main-footer'>
-        &copy; {new Date().getFullYear()} Aplikacja Filmowa
+        &copy; {new Date().getFullYear()} Aplikacja Filmowa - Autor: Robert Zając 
       </footer>
       </Router>
     );
