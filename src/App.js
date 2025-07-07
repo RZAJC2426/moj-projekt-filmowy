@@ -28,7 +28,7 @@ export default function App() {
             <GenresDropdown />
             <NavLink to="/kontakt">Kontakt</NavLink>
             <NavLink to="/o-nas">O nas</NavLink>
-            <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode}/>
+            <ThemeToggle dark={dark} setDark={setDark}/>
           </nav></header>
       <main>
         <AnimatedRoutes />
