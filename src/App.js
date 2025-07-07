@@ -11,18 +11,13 @@ import GenresDropdown from './components/GenresDropdown';
 import ThemeToggle from './components/ThemeToggle';
 
 
-function App() {
-  const [darkMode, setDarkMode] = useState(() =>{
-    const saved = localStorage.getItem('theme');
-    return saved ? saved === 'dark':
-      window.matchMedia("(prefers-color-scheme:dark)").matches;
-  });
-
+export default function App() {
+  const [dark, setDark] = useState(() => 
+  localStorage.getItem('theme') === 'dark');
   useEffect(() => {
-    console.log("App.js uruchomiony");
-    document.body.className = darkMode ? 'dark-mode' : '';
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light'); 
-},[darkMode]);
+    document.body.className = dark ? 'dark-mode' : '';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }, [dark]);
 
     return (
       <Router>
@@ -30,28 +25,20 @@ function App() {
         <header className='main-header'>
           <nav>
             <NavLink to="/" end>Filmy</NavLink>
-            <GenresDropdown /> {/*<--nowy dropdown*/}
+            <GenresDropdown />
             <NavLink to="/kontakt">Kontakt</NavLink>
             <NavLink to="/o-nas">O nas</NavLink>
             <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode}/>
-          </nav>
-        </header>
-
+          </nav></header>
       <main>
         <AnimatedRoutes />
       </main>
-
       <footer className='main-footer'>
         &copy; {new Date().getFullYear()} Aplikacja Filmowa
       </footer>
       </Router>
     );
 }
-
-export default App;
-
-
-
 
 
 
