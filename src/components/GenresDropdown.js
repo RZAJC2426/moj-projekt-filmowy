@@ -17,7 +17,7 @@ function GenresDropdown() {
     }, []);
 
     return (
-        <button
+        <div
         className="dropdown"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
@@ -34,7 +34,7 @@ function GenresDropdown() {
                 ))}
             </ul>
         )}
-        </button>
+        </div>
     );
 }
 
