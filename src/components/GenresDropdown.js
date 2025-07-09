@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 const API = "https://api.themoviedb.org/3";
-const key= "a1b942395ebe30f4f491d5c7f0cdb7fd";
+const key= process.env.REACT_APP_TMDB_API_KEY;
 
 function GenresDropdown() {
     const [genres, setGenres] =useState([]);
