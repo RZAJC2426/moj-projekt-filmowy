@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 const API = "https://api.themoviedb.org/3";
-const key= process.env.REACT_APP_TMDB_API_KEY;
+const key= "a1b942395ebe30f4f491d5c7f0cdb7fd";
 
 function GenresDropdown() {
     const [genres, setGenres] =useState([]);
@@ -22,7 +22,7 @@ function GenresDropdown() {
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
         >
-        <span className="dropdown_label">Gatunki</span>
+        <span className="dropdown_label" aria-haspopup="true">Gatunki</span>
         {open && (
             <ul className="dropdown-menu">
                 {genres.map((genre) => (
