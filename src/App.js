@@ -12,12 +12,22 @@ import ThemeToggle from './components/ThemeToggle';
 
 
 export default function App() {
-  const [dark, setDark] = useState(() => 
-  localStorage.getItem('theme') === 'dark');
+  const [darkMode, setDarkMode] = useState(() => {
+  if (typeof window !== 'undefined') {
+  const saved = localStorage.getItem('theme');
+  return saved ? saved === 'dark' : 
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  return false;
+});
+
   useEffect(() => {
-    document.body.className = dark ? 'dark-mode' : '';
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
-  }, [dark]);
+    if (typeof window !== 'undefined') {
+    document.body.classList.toggle('dark-mode', darkMode);
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    }
+  }, [darkMode]);
+
 
     return (
       <Router>
@@ -28,7 +38,7 @@ export default function App() {
             <GenresDropdown />
             <NavLink to="/kontakt">Kontakt</NavLink>
             <NavLink to="/o-nas">O nas</NavLink>
-            <ThemeToggle dark={dark} setDark={setDark}/>
+            <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode}/>
           </nav></header>
       <main>
         <AnimatedRoutes />
