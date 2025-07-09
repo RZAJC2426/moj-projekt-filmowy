@@ -10,6 +10,7 @@ const key = process.env.REACT_APP_TMDB_API_KEY;
 function GenrePage() {
     const {genreId} = useParams();
     const [movies, setMovies] = useState([]);
+    const [genreName, setGenreName] = useState("");
 
     useEffect(() => {
         axios
@@ -17,32 +18,29 @@ function GenrePage() {
             .then((res) => setMovies(res.data.results))
             .catch((err) => console.error ("Błąd pobierania filmów wg. gatunku", err))
         }, [genreId]);
+
+        axios
+        .get(`${API}/genre/movie/list?api_key=${key}&language=pl-PL`)
+        .then((res) => {
+            const genre = res.data.genres.find(g => g.id === parseInt((genreId)));
+            setGenreName(genre ? genre.name : "Nieznany gatunek");
+        });
         
         return (
-            <motion.div
-            className="genre_page"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit = {{ opacity: 0 }}
-            >
-            <h2>Filmy wg. gatunku</h2>
+            <div
+            className="page-container">
+            <h2>Gatunek: {genreName}</h2>
             <ul className="movie-grid">
                 {movies.map((movie) => (
-                    <li key={movie.id}>
-                        <Link to={`/movie/${movie.id}`}>
-                            {movie.poster_path ? (
+                    <li key={movie.id} className="movie-item">
                                 <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title}/>
-                            ):(
-                                <div style={{ width: 200, height: 300, background: "#ccc"}}>Brak obrazu</div>  
-                            )}
                             <p>{movie.title}</p>
-                        </Link>
                     </li>
                 ))}
             </ul>
-            </motion.div>
+            </div>
         );
-}
+};
 
 export default GenrePage;
 

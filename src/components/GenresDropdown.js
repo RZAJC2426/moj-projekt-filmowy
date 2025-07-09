@@ -16,13 +16,18 @@ function GenresDropdown() {
             .catch((err) => console.error("Błąd pobierania gatunków", err));
     }, []);
 
+    const toggleDropdown = () => setOpen(prev => !prev);
+
     return (
         <div
-        className="dropdown"
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        >
-        <span className="dropdown_label" aria-haspopup="true">Gatunki</span>
+        className="dropdown">
+            <button 
+            className="dropdown_label"
+            aria-haspopup="true"
+            onClick={toggleDropdown}
+            aria-expanded={open}
+            >Gatunki
+            </button>
         {open && (
             <ul className="dropdown-menu">
                 {genres.map((genre) => (
