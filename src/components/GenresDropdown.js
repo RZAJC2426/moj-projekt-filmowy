@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { AnimatePresence } from "framer-motion";
 
 const API = "https://api.themoviedb.org/3";
 const key= process.env.REACT_APP_TMDB_API_KEY;
@@ -26,10 +27,25 @@ function GenresDropdown() {
             aria-haspopup="true"
             onClick={toggleDropdown}
             aria-expanded={open}
+            style={{display: "flex", alignItems:"center", gap: "0,5em",
+            background:"none", border:"none", color:"white", cursor:"pointer"}}
             >Gatunki
+            <motion.span
+            animate={{rotate: open ? 180 : 0}}
+            transition={{ duration: 0.3 }}
+            style={{display:"inline-block"}}>
+               ▼ 
+            </motion.span>
             </button>
+            <AnimatePresence>
         {open && (
-            <ul className="dropdown-menu">
+            <motion.ul 
+            className="dropdown-menu"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1,y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            >
                 {genres.map((genre) => (
                 <li key={genre.id}>
                     <NavLink to={`/gatunek/${genre.id}`} onClick={() => setOpen(false)}>
@@ -37,8 +53,9 @@ function GenresDropdown() {
                     </NavLink>
                 </li>
                 ))}
-            </ul>
+            </motion.ul>
         )}
+        </AnimatePresence>
         </div>
     );
 }
