@@ -175,6 +175,7 @@ button.dropdown-label {
   padding: 0.5em;
   z-index: 1000;
   border-radius: 4px;
+  font-weight: bold;
 }
 
 .dropdown-menu li {
