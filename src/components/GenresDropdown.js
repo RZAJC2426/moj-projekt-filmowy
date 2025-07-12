@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const API = "https://api.themoviedb.org/3";
 const key= process.env.REACT_APP_TMDB_API_KEY;
