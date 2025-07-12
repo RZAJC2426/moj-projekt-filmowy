@@ -29,12 +29,12 @@ function GenresDropdown() {
             aria-expanded={open}
             style={{display: "flex", alignItems:"center", gap: "0,5em",
             background:"none", border:"none", color:"white", cursor:"pointer"}}
-            >Gatunki
+            ><span className="Gatunki">Gatunki ▼</span>
             <motion.span
             animate={{rotate: open ? 180 : 0}}
             transition={{ duration: 0.3 }}
             style={{display:"inline-block"}}>
-               ▼ 
+                
             </motion.span>
             </button>
             <AnimatePresence>

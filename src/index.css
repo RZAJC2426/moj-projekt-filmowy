@@ -97,7 +97,7 @@ opacity: .5;
 }
 
 .main-header nav a.active{
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .main-footer {
@@ -305,6 +305,8 @@ body.dark-mode .prev{
   border-radius: 4px;
 }
 
-
+.Gatunki{
+  font-weight: bold;
+}
 
 
