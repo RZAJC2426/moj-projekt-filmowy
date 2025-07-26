@@ -9,13 +9,30 @@ const key = process.env.REACT_APP_TMDB_API_KEY;
 function MovieDetails(){
     const {id} = useParams();
     const [movie, setMovie] = useState(null);
+    const [providers, setProviders] = useState([]);
 
     useEffect(() => {
-        axios.get(`${API}/movie/${id}?api_key=${key}`)
-        .then(res => setMovie(res.data))
-        .catch(err => {
+        const fetchMovie = async () => {
+    try {
+        const res = await axios.get(`${API}/movie/${id}?api_key=${key}&language=pl-PL`);
+        setMovie(res.data);
+        } catch (err) {
             console.error("Błąd ładowania filmu:", err);
-        });
+        }
+    };
+
+    const fetchProviders = async () => {
+        try {
+            const res = await axios.get(`${API}/movie/${id}/watch/providers?api_key=${key}`);
+            const providerList = res.data.results?.PL?.flarate || [];
+            setProviders(providerList);
+        } catch (err) {
+            console.error("Błąd pobierania dostawców", err);
+            }
+        };
+
+        fetchMovie();
+        fetchProviders();
     }, [id]);
 
     if(!movie) return<p>Ładowanie...</p>;
@@ -27,7 +44,7 @@ function MovieDetails(){
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         >
-        <Link to="/">Powrót</Link>
+        <Link to="/">← Powrót</Link>
         <h2>{movie.title}</h2>
         {movie.poster_path ?(
         <img
@@ -41,7 +58,34 @@ function MovieDetails(){
         )}
         <p>{movie.overview}</p>
         <p><strong> Premiera: </strong> {movie.release_date}</p>
-        <p><strong> Ocena:</strong> {movie.vote_average}/10</p>   
+        <p><strong> Ocena:</strong> {movie.vote_average}/10</p>
+        {providers.length > 0 && (
+            <div className="providers">
+                <h4>Dostępny na platformach:</h4>
+                <ul style={{
+                    display: "flex", 
+                    gap: "1em",
+                    listStyle: "none",
+                    padding: 0,
+                    marginTop: "1em"
+                }}>
+                    {providers.map((prov) => (
+                        <li key={prov.provider_id} title={prov.provider_name}>
+                            <img
+                            src={`https://image.tmdb.org/t/p/w45${prov.logo_path}`}
+                            alt={prov.provider_name}
+                            style={{
+                                borderRadius:"5px",
+                                maxHeight:"40px",
+                                background:"#fff",
+                                padding:"4px"
+                            }}
+                            />
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )}   
         </motion.div>
     );
 }

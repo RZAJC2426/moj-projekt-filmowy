@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +9,7 @@ const key= process.env.REACT_APP_TMDB_API_KEY;
 function GenresDropdown() {
     const [genres, setGenres] =useState([]);
     const [open, setOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
     useEffect(() => {
         axios
@@ -17,26 +18,49 @@ function GenresDropdown() {
             .catch((err) => console.error("Błąd pobierania gatunków", err));
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)){
+                setOpen(false);
+            }
+    };
+
+    if(open){
+        document.addEventListener("mousedown", handleClickOutside);
+    }  else {
+        document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+},[open]);
+
     const toggleDropdown = () => setOpen(prev => !prev);
 
     return (
         <div
-        className="dropdown">
-            <button 
-            className="dropdown_label"
+        className="dropdown" ref={dropdownRef}>
+            <div
+            className="nav-item dropdown_label"
             aria-haspopup="true"
             onClick={toggleDropdown}
             aria-expanded={open}
-            style={{display: "flex", alignItems:"center", gap: "0,5em",
-            background:"none", border:"none", color:"white", cursor:"pointer"}}
-            ><span className="Gatunki">Gatunki ▼</span>
+            style={{
+                display: "flex", 
+                alignItems:"center", 
+                gap: "0,5em",
+                background:"none", 
+                border:"none", 
+                color:"white", 
+                cursor:"pointer"
+        }}
+            >Gatunki ▼
             <motion.span
-            animate={{rotate: open ? 180 : 0}}
+            animate={{ rotate: open ? 180 : 0 }}
             transition={{ duration: 0.3 }}
-            style={{display:"inline-block"}}>
+            style={{ display: "inline-block" }}>
                 
             </motion.span>
-            </button>
+            </div>
             <AnimatePresence>
         {open && (
             <motion.ul 
@@ -48,7 +72,8 @@ function GenresDropdown() {
             >
                 {genres.map((genre) => (
                 <li key={genre.id}>
-                    <NavLink to={`/gatunek/${genre.id}`} onClick={() => setOpen(false)}>
+                    <NavLink to={`/gatunek/${genre.id}`} onClick={() => 
+                        setOpen(false)}>
                         {genre.name}
                     </NavLink>
                 </li>
