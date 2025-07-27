@@ -20,7 +20,6 @@ function GenrePage() {
     const {genreId} = useParams();
     const [movies, setMovies] = useState([]);
     const [genreName, setGenreName] = useState("");
-    const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -55,19 +54,16 @@ function GenrePage() {
             <h2>Gatunek: {genreName}</h2>
 
             <motion.ul 
-            className="movie-grid"
-            initial="hidden"
-            animate="visible"
-            >
-                {movies.map((m, i) => (
-                    <motion.li 
-                    key={m.id} 
-                    className="movie-item"
-                    variants={cardVariants}
-                    custom={i}
-                    initial="hidden"
-                    animate="visite"
-                    >
+            className="movie-grid">
+            {movies.map((m, i) => (
+                <motion.li 
+                key={m.id} 
+                className="movie-item"
+                variants={cardVariants}
+                custom={i}
+                initial="hidden"
+                animate="visite"
+                >  
                 <Link to={`/movie/${m.id}`}>
                     <motion.img 
                         src={
