@@ -28,7 +28,7 @@ function GenrePage() {
         try {
             const [genreRes, movieRes] = await Promise.all([
                 axios.get(`${API}/genre/movie/list?api_key=${key}&language=pl-PL`),
-                axios.get(`${API}/discover/movie?api_key=${key}&with_genres=${genreId}&language=pl-PL`),
+                axios.get(`${API}/discover/movie?api_key=${key}&with_genres=${genreId}&language=pl-PL&page=${page}`),
                 ]);
             
              const genre = genreRes.data.genres.find((g) => String(g.id) === genreId);
@@ -54,9 +54,7 @@ function GenrePage() {
             <h2>Gatunek: {genreName}</h2>
 
             <motion.ul 
-            className="movie-grid"
-            animate="visible"
-            initial="hidden">
+            className="movie-grid">
             {movies.map((m, i) => (
                 <motion.li 
                 key={m.id} 
