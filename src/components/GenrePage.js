@@ -54,7 +54,9 @@ function GenrePage() {
             <h2>Gatunek: {genreName}</h2>
 
             <motion.ul 
-            className="movie-grid">
+            className="movie-grid"
+            animate="visible"
+            initial="hidden">
             {movies.map((m, i) => (
                 <motion.li 
                 key={m.id} 
