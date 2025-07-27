@@ -74,6 +74,19 @@ opacity: .5;
   gap: 1em;
 }
 
+.pagination button {
+  padding: 0.5em 1em;
+  background-color: #5c96e6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pagination button:disabled{
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
 .main-header nav{
   display: flex;
   gap: 2rem;
