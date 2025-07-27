@@ -62,7 +62,7 @@ function GenrePage() {
                 variants={cardVariants}
                 custom={i}
                 initial="hidden"
-                animate="visite"
+                animate="visible"
                 >  
                 <Link to={`/movie/${m.id}`}>
                     <motion.img 
