@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams,Link } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const API = "https://api.themoviedb.org/3";
 const key = process.env.REACT_APP_TMDB_API_KEY;
@@ -10,6 +11,20 @@ function MovieDetails(){
     const {id} = useParams();
     const [movie, setMovie] = useState(null);
     const [providers, setProviders] = useState([]);
+    
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const handleBack = () => {
+        if (location.state?.from)
+        {
+            const { pathname, page } = location.state.from;
+            navigate(`${pathname}?page=${page}`);
+        }
+        else {
+            navigate(-1);
+        }
+    };
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -44,7 +59,10 @@ function MovieDetails(){
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         >
-        <Link to="/">← Powrót</Link>
+        <button onClick={handleBack} className="back-button">
+        ← powrót
+        </button>
+
         <h2>{movie.title}</h2>
         <p>{movie.overview}</p>
 

@@ -64,7 +64,15 @@ function GenrePage() {
                 initial="hidden"
                 animate="visible"
                 >  
-                <Link to={`/movie/${m.id}`}>
+                <Link to={`/movie/${m.id}`}
+                state={{
+                    from:{
+                        pathname:`/gatunek/${genreId}`,
+                        page,
+                        genreName
+                    }
+                }}
+                >
                     <motion.img 
                         src={
                             m.poster_path 
