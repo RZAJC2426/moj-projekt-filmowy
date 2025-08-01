@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import {motion} from "framer-motion";
 import { Link } from "react-router-dom";
+import { current } from "@reduxjs/toolkit";
 
 const API ="https://api.themoviedb.org/3";
 const key = process.env.REACT_APP_TMDB_API_KEY;
@@ -19,6 +20,9 @@ const cardVariants = {
 function GenrePage() {
     const {genreId} = useParams();
     const [movies, setMovies] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const CurrentPage = parseInt(searchParams.get("page")) || 1;
+
     const [genreName, setGenreName] = useState("");
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -42,6 +46,17 @@ function GenrePage() {
 
             fetchData();
         }, [genreId, page]);
+
+        const handlePrev = () => {
+            const prev = Math.max(CurrentPage -1, 1);
+            setSearchParams({ page: prev });
+        };
+
+        const handleNext = () => {
+            const next = Math.min(CurrentPage + 1, totalPages);
+            setSearchParams({ page: next});
+        };
+
 
         return (
             <motion.div
@@ -68,9 +83,9 @@ function GenrePage() {
                 state={{
                     from:{
                         pathname:`/gatunek/${genreId}`,
-                        page,
-                        genreName
-                    }
+                        page: CurrentPage,
+                        genreName: genreName,
+                    },
                 }}
                 >
                     <motion.img 
@@ -90,11 +105,11 @@ function GenrePage() {
                 ))}
                 </motion.ul>
                 <div className="pagination">
-                    <button onClick={() => setPage((p) => Math.max(p -1, 1))} disabled={page === 1}>
+                    <button onClick={handlePrev} disabled={CurrentPage === 1}>
                         Poprzednia
                     </button>
                     <span style={{ margin: "0 1em" }}> {page} / {totalPages} </span>
-                    <button onClick={() => setPage((p) => Math.min(p + 1, totalPages))} disabled={page === totalPages}>
+                    <button onClick={handleNext} disabled={CurrentPage === totalPages}>
                         Następna
                     </button>
                 </div>
