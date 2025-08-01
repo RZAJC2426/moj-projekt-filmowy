@@ -21,10 +21,8 @@ function GenrePage() {
     const {genreId} = useParams();
     const [movies, setMovies] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
-    const CurrentPage = parseInt(searchParams.get("page")) || 1;
-
+    const currentPage = parseInt(searchParams.get("page")) || 1;
     const [genreName, setGenreName] = useState("");
-    const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
@@ -32,7 +30,7 @@ function GenrePage() {
         try {
             const [genreRes, movieRes] = await Promise.all([
                 axios.get(`${API}/genre/movie/list?api_key=${key}&language=pl-PL`),
-                axios.get(`${API}/discover/movie?api_key=${key}&with_genres=${genreId}&language=pl-PL&page=${page}`),
+                axios.get(`${API}/discover/movie?api_key=${key}&with_genres=${genreId}&language=pl-PL&page=${currentPage}`),
                 ]);
             
              const genre = genreRes.data.genres.find((g) => String(g.id) === genreId);
@@ -48,12 +46,12 @@ function GenrePage() {
         }, [genreId, page]);
 
         const handlePrev = () => {
-            const prev = Math.max(CurrentPage -1, 1);
+            const prev = Math.max(currentPage -1, 1);
             setSearchParams({ page: prev });
         };
 
         const handleNext = () => {
-            const next = Math.min(CurrentPage + 1, totalPages);
+            const next = Math.min(currentPage + 1, totalPages);
             setSearchParams({ page: next});
         };
 
@@ -83,7 +81,7 @@ function GenrePage() {
                 state={{
                     from:{
                         pathname:`/gatunek/${genreId}`,
-                        page: CurrentPage,
+                        page: currentPage,
                         genreName: genreName,
                     },
                 }}
@@ -105,11 +103,11 @@ function GenrePage() {
                 ))}
                 </motion.ul>
                 <div className="pagination">
-                    <button onClick={handlePrev} disabled={CurrentPage === 1}>
+                    <button onClick={handlePrev} disabled={currentPage === 1}>
                         Poprzednia
                     </button>
                     <span style={{ margin: "0 1em" }}> {page} / {totalPages} </span>
-                    <button onClick={handleNext} disabled={CurrentPage === totalPages}>
+                    <button onClick={handleNext} disabled={currentPage === totalPages}>
                         Następna
                     </button>
                 </div>
