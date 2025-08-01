@@ -43,7 +43,7 @@ function GenrePage() {
             }; 
 
             fetchData();
-        }, [genreId, page]);
+        }, [genreId, currentPage]);
 
         const handlePrev = () => {
             const prev = Math.max(currentPage -1, 1);
@@ -106,7 +106,7 @@ function GenrePage() {
                     <button onClick={handlePrev} disabled={currentPage === 1}>
                         Poprzednia
                     </button>
-                    <span style={{ margin: "0 1em" }}> {page} / {totalPages} </span>
+                    <span style={{ margin: "0 1em" }}> {currentPage} / {totalPages} </span>
                     <button onClick={handleNext} disabled={currentPage === totalPages}>
                         Następna
                     </button>
