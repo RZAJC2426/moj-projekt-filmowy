@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import {motion} from "framer-motion";
+import {motion, AnimatePresence} from "framer-motion";
 import { Link } from "react-router-dom";
 import { current } from "@reduxjs/toolkit";
 
@@ -66,8 +66,15 @@ function GenrePage() {
             >
             <h2>Gatunek: {genreName}</h2>
 
+            <AnimatePresence mode="wait">
             <motion.ul 
-            className="movie-grid">
+            className="movie-grid"
+            key={currentPage}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            >
             {movies.map((m, i) => (
                 <motion.li 
                 key={m.id} 
@@ -102,6 +109,7 @@ function GenrePage() {
                     </motion.li>
                 ))}
                 </motion.ul>
+                </AnimatePresence>
                 <motion.div className="pagination"
                 initial={{ opacity: 0, y:10 }}
                 animate={{ opacity: 1, y:0 }}
