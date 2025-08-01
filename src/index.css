@@ -47,23 +47,45 @@ opacity: .5;
 .movie-grid{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
-  gap:1em;
+  gap:1.5rem;
   list-style: none;
-  padding: 0;
+  padding: 1rem 0;
+  margin: 0;
 }
 
 .movie-item{
   text-align: center;
   font-size: 0.9rem;
   border: 1px solid #eee;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0.5em;
-  background: #fafafa;
+  background: var(--card-bg, #fff);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0, 0.06);
 }
 .movie-item img{
   width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  height: auto;
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+
+.movie-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0, 0.01);
+}
+
+.movie-item a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 0.5rem;
+}
+
+.movie-item p {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .pagination {
@@ -75,15 +97,22 @@ opacity: .5;
 }
 
 .pagination button {
-  padding: 0.5em 1em;
+  padding: 0.5em 1.25rem;
   background-color: #5c96e6;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
 }
+
+.pagination button:hover:not(:disabled) {
+background-color: #417ed3;
+}
+
 .pagination button:disabled{
-  background-color: #aaa;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
@@ -233,13 +262,14 @@ button.dropdown-label {
 }
 
 body.dark-mode {
+  --card-bg:#1e1e1e;
   background-color: #121212;
-  color: #f5f5f5;
+  color: #f2f2f2;
 }
 
 body.dark-mode .movie-item {
-  background-color: #1e1e1e;
-  border-color: #333;
+  background-color: var(--card-bg);
+  color: #f2f2f2;
 }
 
 body.dark-mode .main-header nav {
