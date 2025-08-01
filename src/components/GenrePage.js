@@ -36,7 +36,7 @@ function GenrePage() {
              const genre = genreRes.data.genres.find((g) => String(g.id) === genreId);
              setGenreName(genre?.name || "Nieznany gatunek");
              setMovies(movieRes.data.results);
-             setTotalPages(movieRes.data.total_pages);
+             setTotalPages(Math.min(movieRes.data.total_pages,500));
         }    catch (err) {
                 console.error("Błąd pobierania filmów wg. gatunku", err);
                 }
@@ -100,7 +100,7 @@ function GenrePage() {
                             : " https://via.placeholder.com/200x300?text=Brak+obrazu"
                         }
                             
-                            alt={m.title}
+                            alt={m.title || "Brak Tytułu"}
                             loading="lazy"
                             whileHover={{ scale: 1.05}}
                             />
