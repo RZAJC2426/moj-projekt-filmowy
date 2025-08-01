@@ -102,7 +102,11 @@ function GenrePage() {
                     </motion.li>
                 ))}
                 </motion.ul>
-                <div className="pagination">
+                <motion.div className="pagination"
+                initial={{ opacity: 0, y:10 }}
+                animate={{ opacity: 1, y:0 }}
+                transition={{ duration: 0.3 }}
+                >
                     <button onClick={handlePrev} disabled={currentPage === 1}>
                         Poprzednia
                     </button>
@@ -110,7 +114,7 @@ function GenrePage() {
                     <button onClick={handleNext} disabled={currentPage === totalPages}>
                         Następna
                     </button>
-                </div>
+                </motion.div>
             </motion.div>
         );
 }
